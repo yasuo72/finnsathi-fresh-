@@ -1,6 +1,6 @@
 // This file contains the Sign In (Login) screen for the Finsaathi Multi app.
 import 'package:flutter/material.dart';
-import '../widgets/custom_text_field.dart';
+import '../../widgets/custom_text_field.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -66,7 +66,7 @@ class SignInScreen extends StatelessWidget {
                     height: 48,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/verification');
+                        Navigator.pushNamed(context, '/home');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF4866FF),

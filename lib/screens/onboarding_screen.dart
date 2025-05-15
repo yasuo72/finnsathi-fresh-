@@ -10,32 +10,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
   int _currentPage = 0;
 
+  // Dynamic onboarding data for logic prep
   final List<Map<String, String>> _pages = [
     {
       'title': 'Smart Spending Starts Here',
       'subtitle': '',
-      'image': '', // Add asset path if you have images
+      'image': 'assets/img.png', // Add asset path if you have images
       'button': 'Get Started',
       'footer': 'Already have an account? Sign in'
     },
     {
       'title': 'Earn rewards as you shop at campus stores and save more!',
       'subtitle': '',
-      'image': '',
+      'image': 'assets/img_1.png',
       'button': 'Next',
       'footer': ''
     },
     {
       'title': 'Shop, Earn, Repeat because every purchase counts!',
       'subtitle': '',
-      'image': '',
+      'image': 'assets/img_2.png',
       'button': 'Next',
       'footer': ''
     },
     {
       'title': 'Get access to the best deals inside your campus!',
       'subtitle': '',
-      'image': '',
+      'image': 'assets/img_3.png',
       'button': 'Next',
       'footer': ''
     },
@@ -47,6 +48,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     } else {
       _controller.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(_currentPage == _pages.length - 1 ? 'Onboarding finished!' : 'Next page')),  
+    );
   }
 
   @override
@@ -63,16 +67,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onPageChanged: (i) => setState(() => _currentPage = i),
                 itemBuilder: (context, i) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 50),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         if (_pages[i]['image']!.isNotEmpty)
                           Image.asset(_pages[i]['image']!),
-                        SizedBox(height: 32),
+                        SizedBox(height: 36),
                         Text(_pages[i]['title']!,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
                         if (_pages[i]['subtitle']!.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -88,11 +92,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
+                            elevation: 3,
                           ),
                           onPressed: _onNext,
-                          child: Text(
-                            i == 0 ? 'Get Started' : (i == _pages.length - 1 ? 'Finish' : 'Next'),
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                          child: AnimatedSwitcher(
+                            duration: Duration(milliseconds: 200),
+                            child: Text(
+                              i == 0 ? 'Get Started' : (i == _pages.length - 1 ? 'Finish' : 'Next'),
+                              key: ValueKey(i),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                            ),
                           ),
                         ),
                         if (_pages[i]['footer']!.isNotEmpty)
@@ -115,6 +124,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                     ? Color(0xFF4866FF)
                                     : Colors.grey[300],
                                 borderRadius: BorderRadius.circular(4),
+                                boxShadow: _currentPage == index
+                                    ? [BoxShadow(color: Color(0xFF4866FF).withOpacity(0.2), blurRadius: 4)]
+                                    : [],
                               ),
                             ),
                           ),

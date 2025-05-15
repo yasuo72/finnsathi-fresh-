@@ -1,6 +1,6 @@
 // This file contains the New Password screen for the Finsaathi Multi app.
 import 'package:flutter/material.dart';
-import '../widgets/custom_text_field.dart';
+import 'package:finsaathi_multi/widgets/custom_text_field.dart';
 
 class NewPasswordScreen extends StatelessWidget {
   const NewPasswordScreen({super.key});

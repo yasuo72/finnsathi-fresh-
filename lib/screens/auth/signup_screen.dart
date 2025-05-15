@@ -1,7 +1,7 @@
 // This file contains the Sign Up screen for the Finsaathi Multi app.
 import 'package:flutter/material.dart';
-import '../widgets/custom_text_field.dart';
-import '../services/auth_service.dart';
+import '../../widgets/custom_text_field.dart';
+import '../../services/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
